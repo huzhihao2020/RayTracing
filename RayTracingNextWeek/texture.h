@@ -2,6 +2,7 @@
 #define TEXTURE_H
 
 #include "rtweekend.h"
+#include "perlin.h"
 
 class texture {
     public:
@@ -32,8 +33,13 @@ class checker_texture : public texture {
             : even(make_shared<solid_color>(c1)) , odd(make_shared<solid_color>(c2)) {}
 
         virtual color value(double u, double v, const point3& p) const override {
+<<<<<<< HEAD
+            auto sines = sin(10*p.x())*sin(10*p.y())*sin(10*p.z());
+            // auto sines = sin(10*p.x())*sin(10*p.z());
+=======
             // auto sines = sin(10*p.x())*sin(10*p.y())*sin(10*p.z());
             auto sines = sin(10*p.x())*sin(10*p.z());
+>>>>>>> d7b760b2a4405a4e1af64e114599140bcffbe3d8
             if (sines < 0)
                 return odd->value(u, v, p);
             else
@@ -45,4 +51,19 @@ class checker_texture : public texture {
         shared_ptr<texture> even;
 };
 
+class noise_texture : public texture{
+    public:
+        noise_texture() {}
+        noise_texture(double sc) : scale(sc) {}
+        virtual color value(double u, double v, const point3& p) const override {
+            // return color(1,1,1) * 0.5 * (1.0 + noise.noise(scale * p));
+            // return color(1,1,1) * noise.turb(scale * p);
+            return color(1,1,1) * 0.5 * (1 + sin(scale*p.z() + 10*noise.turb(p)));
+
+            // return color(1,1,1);
+        }
+    public:
+        perlin noise;
+        double scale;
+};
 #endif //TEXTURE_H
