@@ -81,11 +81,7 @@ hittable_list random_scene() {
     return world;
 }
 
-<<<<<<< HEAD
 // Scene2 TwoSpheres-Checkered
-=======
-// Scene2 TwoSphere
->>>>>>> d7b760b2a4405a4e1af64e114599140bcffbe3d8
 hittable_list two_spheres() {
     hittable_list objects;
 
@@ -97,7 +93,6 @@ hittable_list two_spheres() {
     return objects;
 }
 
-<<<<<<< HEAD
 // Scene3 TwoSpheres-Perlin
 hittable_list two_perlin_spheres() {
     hittable_list objects;
@@ -109,8 +104,15 @@ hittable_list two_perlin_spheres() {
     return objects;
 }
 
-=======
->>>>>>> d7b760b2a4405a4e1af64e114599140bcffbe3d8
+// Scene4 EarthTexture
+hittable_list earth() {
+    auto earth_texture = make_shared<image_texture>("image/earthmap.jpg");
+    auto earth_surface = make_shared<lambertian>(earth_texture);
+    auto globe = make_shared<sphere>(point3(0,0,0), 2, earth_surface);
+
+    return hittable_list(globe);
+}
+
 int main()
 {
     // Image
@@ -136,21 +138,21 @@ int main()
             vfov = 20.0;
             aperture = 0.1;
             break;
-<<<<<<< HEAD
         case 2:
             world = two_spheres();
             lookfrom = point3(13,2,3);
             lookat = point3(0,0,0);
             vfov = 20.0;
             break;
-        default:
         case 3:
             world = two_perlin_spheres();
-=======
+            lookfrom = point3(13,2,3);
+            lookat = point3(0,0,0);
+            vfov = 20.0;
+            break;
         default:
-        case2:
-            world = two_spheres();
->>>>>>> d7b760b2a4405a4e1af64e114599140bcffbe3d8
+        case 4:
+            world = earth();
             lookfrom = point3(13,2,3);
             lookat = point3(0,0,0);
             vfov = 20.0;
